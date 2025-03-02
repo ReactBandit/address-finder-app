@@ -1,11 +1,16 @@
 import express from 'express';
 import axios from 'axios';
 import dotenv from 'dotenv';
+import cors from 'cors';
+
 
 dotenv.config();
 
 const app = express();
 const port = 3001;
+
+app.use(cors({ origin: 'http://localhost:3000' }));
+
 
 app.get('/address', async (req:any, res:any) => {
     const query = req.query.query;

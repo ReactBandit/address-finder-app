@@ -1,20 +1,20 @@
 import { useState } from 'react';
-import axios from 'axios';
+import {fetchAddress} from "../service";
 
 export default function Home() {
     const [query, setQuery] = useState('');
     const [result, setResult] = useState('');
 
-    const fetchAddress = async () => {
-        try {
-            const response = await axios.get('http://localhost:3001/address', {
-                params: { query },
+    const handleSearch = () => {
+        fetchAddress(query)
+            .then((result) => {
+                setResult(result.features[0].place_name);
+            })
+            .catch(() => {
+                setResult('Failed to fetch address. Please try again.');
             });
-            setResult(response.data.features[0]?.place_name || 'No results found');
-        } catch (error) {
-            setResult('Error fetching address');
-        }
     };
+
 
     return (
         <div style={{ padding: '20px' }}>
@@ -25,7 +25,7 @@ export default function Home() {
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Enter address or ZIP"
             />
-            <button onClick={fetchAddress}>Search</button>
+            <button onClick={handleSearch}>Search</button>
             <p>{result}</p>
         </div>
     );

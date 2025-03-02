@@ -2,6 +2,7 @@ import express from 'express';
 import axios from 'axios';
 import dotenv from 'dotenv';
 import cors from 'cors';
+import helmet from "helmet";
 
 
 dotenv.config();
@@ -11,9 +12,15 @@ const port = 3001;
 
 app.use(cors({ origin: 'http://localhost:3000' }));
 
+app.use(helmet());
 
 app.get('/address', async (req:any, res:any) => {
     const query = req.query.query;
+
+    if (typeof query !== 'string' || query.trim() === '') {
+        return res.status(400).json({ error: 'Invalid address input' });
+    }
+
     if (!query) {
         return res.status(400).json({ error: 'Query parameter is required' });
     }

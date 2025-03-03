@@ -7,24 +7,23 @@ The Address Finder API is a Node.js and Express-based backend service designed t
 Clone the repository:
 
 ```
-git clone <repository-url>
+git clone https://github.com/ReactBandit/address-finder-app.git
 cd address-finder-app
 ```
 
-Install dependencies:
-
-```
-npm install
-```
-Environment variables: Create a .env file in the root and configure:
-```
-MONGO_URI=your_mongodb_connection_string
-```
 Run the server:
 ```
-npm start
+cd backend
+npm install
+npm run dev
 ```
 
+Run the UI:
+```
+cd ../frontend
+npm install
+npm run dev
+```
 
 Address Operations
 
